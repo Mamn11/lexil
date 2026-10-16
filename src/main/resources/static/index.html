@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LexiL — Seu vocabulário pessoal em inglês</title>
+    <meta name="description" content="LexiL é sua plataforma pessoal para construir e revisar vocabulário em inglês com tradução automática.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- Orbs de fundo animados -->
+    <div class="bg-orbs" aria-hidden="true">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+    </div>
+
+    <div class="app-wrapper">
+
+        <!-- Header -->
+        <header class="app-header">
+            <div class="logo-area">
+                <div class="logo-icon" aria-hidden="true">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+                        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+                        <line x1="10" y1="8" x2="16" y2="8"/>
+                        <line x1="10" y1="12" x2="14" y2="12"/>
+                    </svg>
+                </div>
+                <div>
+                    <h1 class="logo-title">LexiL</h1>
+                    <p class="logo-subtitle">Seu vocabulário pessoal em inglês</p>
+                </div>
+            </div>
+            <div class="header-stats">
+                <div class="stat-chip">
+                    <span class="stat-value" id="total-count">0</span>
+                    <span class="stat-label">palavras</span>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <!-- Formulário para adicionar nova palavra -->
+            <section class="add-word-section" aria-label="Adicionar nova palavra">
+                <div class="section-title">
+                    <span class="section-icon" aria-hidden="true">✦</span>
+                    <h2>Adicionar Palavra</h2>
+                </div>
+
+                <form id="word-form" novalidate>
+                    <div class="form-row">
+                        <!-- Campo: Palavra em Inglês -->
+                        <div class="input-group">
+                            <label for="english-word">
+                                <span class="flag" aria-hidden="true">🇺🇸</span>
+                                Palavra em Inglês
+                            </label>
+                            <input
+                                type="text"
+                                id="english-word"
+                                placeholder="Ex: ephemeral, serendipity…"
+                                autocomplete="off"
+                                spellcheck="false"
+                                required
+                            >
+                        </div>
+
+                        <!-- Campo: Tradução -->
+                        <div class="input-group">
+                            <label for="translation">
+                                <span class="flag" aria-hidden="true">🇧🇷</span>
+                                Tradução (PT-BR)
+                            </label>
+                            <div class="translate-wrapper">
+                                <input
+                                    type="text"
+                                    id="translation"
+                                    placeholder="Ex: efêmero, passageiro…"
+                                    autocomplete="off"
+                                    required
+                                >
+                                <button type="button" id="btn-auto-translate" title="Traduzir automaticamente" aria-label="Traduzir automaticamente">
+                                    <span class="btn-icon">🪄</span>
+                                    <span class="btn-label">Auto</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Campo: Observação (opcional) -->
+                    <div class="input-group notes-group">
+                        <label for="notes">
+                            <span class="flag" aria-hidden="true">📝</span>
+                            Observação <span class="optional-tag">(opcional)</span>
+                        </label>
+                        <input
+                            type="text"
+                            id="notes"
+                            placeholder="Ex: usado em contexto formal, irregular…"
+                            autocomplete="off"
+                        >
+                    </div>
+
+                    <button type="submit" id="btn-add" aria-label="Adicionar palavra ao vocabulário">
+                        <span class="btn-icon" aria-hidden="true">+</span>
+                        Adicionar ao Vocabulário
+                    </button>
+                </form>
+            </section>
+
+            <!-- Toast de notificação -->
+            <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+            <!-- Lista de palavras salvas -->
+            <section class="words-list-section" aria-label="Meu vocabulário">
+                <div class="section-header">
+                    <div class="section-title">
+                        <span class="section-icon" aria-hidden="true">◈</span>
+                        <h2>Meu Vocabulário</h2>
+                    </div>
+                    <div class="search-wrapper" id="search-wrapper" style="display:none;">
+                        <span class="search-icon" aria-hidden="true">🔍</span>
+                        <input type="search" id="search-input" placeholder="Buscar palavra…" aria-label="Buscar palavra">
+                    </div>
+                </div>
+
+                <div id="words-container" class="words-grid" aria-live="polite">
+                    <!-- Palavras geradas via JS -->
+                </div>
+            </section>
+        </main>
+
+        <footer class="app-footer">
+            <p>Feito com <span aria-hidden="true">💜</span> para quem ama aprender</p>
+        </footer>
+
+    </div>
+
+    <script src="js/storage.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
