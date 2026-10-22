@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="palette1">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LexiL — Login & Autenticação</title>
+    <meta name="description" content="Acesse sua conta no LexiL para construir e revisar seu vocabulário em inglês.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="login-page-body">
+
+    <!-- Orbs de fundo animados -->
+    <div class="bg-orbs" aria-hidden="true">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+    </div>
+
+    <!-- Barra Superior com Seletor de Temas -->
+    <div class="login-top-bar">
+        <div id="theme-selector-container"></div>
+    </div>
+
+    <div class="login-container">
+        <div class="login-card">
+            
+            <!-- Logo e Título -->
+            <header class="login-header">
+                <div class="login-logo" aria-hidden="true">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+                        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+                        <line x1="10" y1="8" x2="16" y2="8"/>
+                        <line x1="10" y1="12" x2="14" y2="12"/>
+                    </svg>
+                </div>
+                <h1 class="login-title">LexiL</h1>
+                <p class="login-subtitle">Seu vocabulário pessoal em inglês</p>
+                <div class="theme-selector-mount login-theme-mount"></div>
+            </header>
+
+            <!-- Abas: Entrar / Cadastrar -->
+            <nav class="auth-tabs" role="tablist" aria-label="Modo de acesso">
+                <button type="button" class="auth-tab-btn active" id="tab-login" role="tab" aria-selected="true" aria-controls="form-login">
+                    Entrar
+                </button>
+                <button type="button" class="auth-tab-btn" id="tab-register" role="tab" aria-selected="false" aria-controls="form-register">
+                    Criar Conta
+                </button>
+            </nav>
+
+            <!-- Alerta de Status/Erro -->
+            <div id="auth-alert" class="auth-alert" role="alert"></div>
+
+            <!-- Formulário: Entrar -->
+            <form id="form-login" class="auth-form" role="tabpanel" aria-labelledby="tab-login" novalidate>
+                <div class="auth-field">
+                    <label for="login-username">
+                        <span>Usuário</span>
+                    </label>
+                    <div class="auth-input-wrapper">
+                        <span class="auth-input-icon" aria-hidden="true">👤</span>
+                        <input
+                            type="text"
+                            id="login-username"
+                            name="username"
+                            placeholder="Seu usuário"
+                            autocomplete="username"
+                            required
+                        >
+                    </div>
+                </div>
+
+                <div class="auth-field">
+                    <label for="login-password">
+                        <span>Senha</span>
+                    </label>
+                    <div class="auth-input-wrapper">
+                        <span class="auth-input-icon" aria-hidden="true">🔒</span>
+                        <input
+                            type="password"
+                            id="login-password"
+                            name="password"
+                            placeholder="Sua senha"
+                            autocomplete="current-password"
+                            required
+                        >
+                        <button type="button" class="toggle-password-btn" data-target="login-password" aria-label="Mostrar ou ocultar senha" title="Mostrar/Ocultar senha">
+                            👁️
+                        </button>
+                    </div>
+                </div>
+
+                <button type="submit" class="auth-submit-btn" id="btn-login-submit">
+                    <span>Acessar Meu Vocabulário</span>
+                    <span aria-hidden="true">→</span>
+                </button>
+
+                <!-- Dica rápida de contas de teste -->
+                <div class="demo-accounts">
+                    <p class="demo-title">Ou teste com 1 clique:</p>
+                    <div class="demo-chips">
+                        <button type="button" class="demo-chip-btn" data-user="admin" data-pass="password123">
+                            👑 Admin
+                        </button>
+                        <button type="button" class="demo-chip-btn" data-user="estudante" data-pass="password123">
+                            🎓 Estudante
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+            <!-- Formulário: Cadastro -->
+            <form id="form-register" class="auth-form hidden" role="tabpanel" aria-labelledby="tab-register" novalidate>
+                <div class="auth-field">
+                    <label for="reg-name">
+                        <span>Seu Nome ou Apelido</span>
+                    </label>
+                    <div class="auth-input-wrapper">
+                        <span class="auth-input-icon" aria-hidden="true">✨</span>
+                        <input
+                            type="text"
+                            id="reg-name"
+                            name="name"
+                            placeholder="Ex: Mateus Nunes"
+                            autocomplete="name"
+                            required
+                        >
+                    </div>
+                </div>
+
+                <div class="auth-field">
+                    <label for="reg-username">
+                        <span>Nome de Usuário</span>
+                    </label>
+                    <div class="auth-input-wrapper">
+                        <span class="auth-input-icon" aria-hidden="true">@</span>
+                        <input
+                            type="text"
+                            id="reg-username"
+                            name="username"
+                            placeholder="Ex: mateus.nunes"
+                            autocomplete="username"
+                            spellcheck="false"
+                            required
+                        >
+                    </div>
+                </div>
+
+                <div class="auth-field">
+                    <label for="reg-password">
+                        <span>Senha (mínimo 4 caracteres)</span>
+                    </label>
+                    <div class="auth-input-wrapper">
+                        <span class="auth-input-icon" aria-hidden="true">🔑</span>
+                        <input
+                            type="password"
+                            id="reg-password"
+                            name="password"
+                            placeholder="Digite sua senha"
+                            autocomplete="new-password"
+                            required
+                        >
+                        <button type="button" class="toggle-password-btn" data-target="reg-password" aria-label="Mostrar ou ocultar senha" title="Mostrar/Ocultar senha">
+                            👁️
+                        </button>
+                    </div>
+                </div>
+
+                <div class="auth-field">
+                    <label for="reg-confirm-password">
+                        <span>Confirmar Senha</span>
+                    </label>
+                    <div class="auth-input-wrapper">
+                        <span class="auth-input-icon" aria-hidden="true">✓</span>
+                        <input
+                            type="password"
+                            id="reg-confirm-password"
+                            name="confirmPassword"
+                            placeholder="Confirme sua senha"
+                            autocomplete="new-password"
+                            required
+                        >
+                    </div>
+                </div>
+
+                <button type="submit" class="auth-submit-btn" id="btn-reg-submit">
+                    <span>Criar Minha Conta</span>
+                    <span aria-hidden="true">🚀</span>
+                </button>
+            </form>
+
+        </div>
+    </div>
+
+    <script src="js/theme.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/login.js"></script>
+</body>
+</html>

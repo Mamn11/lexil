@@ -14,7 +14,37 @@ const searchWrapper    = document.getElementById('search-wrapper');
 const searchInput      = document.getElementById('search-input');
 const toast            = document.getElementById('toast');
 
+const userNameEl       = document.getElementById('user-name');
+const userAvatarEl     = document.getElementById('user-avatar');
+const btnLogout        = document.getElementById('btn-logout');
+
 let toastTimer = null;
+
+// ── Auth & User Setup ─────────────────────────────────────────
+const currentUser = typeof requireAuth === 'function' ? requireAuth() : null;
+
+if (currentUser) {
+    if (userNameEl) {
+        userNameEl.textContent = currentUser.name || currentUser.username;
+    }
+    if (userAvatarEl) {
+        const initial = (currentUser.name || currentUser.username || 'U').charAt(0).toUpperCase();
+        userAvatarEl.textContent = initial;
+    }
+}
+
+if (btnLogout) {
+    btnLogout.addEventListener('click', () => {
+        if (confirm('Deseja realmente sair da sua conta?')) {
+            logoutUser();
+        }
+    });
+}
+
+// Inicializar Seletor de Temas
+if (typeof setupThemeSelector === 'function') {
+    setupThemeSelector('theme-selector-container');
+}
 
 // ── Toast helper ──────────────────────────────────────────────
 function showToast(message, duration = 2800) {
@@ -102,7 +132,7 @@ function escapeHtml(str) {
 }
 
 // ── Add word ──────────────────────────────────────────────────
-wordForm.addEventListener('submit', function (evento) {
+wordForm.addEventListener('submit', async function (evento) {
     evento.preventDefault();
 
     const englishWord     = englishWordInput.value.trim();
@@ -110,26 +140,26 @@ wordForm.addEventListener('submit', function (evento) {
     const notesWord       = notesInput.value.trim();
 
     if (englishWord && translationWord) {
-        addWordToStorage(englishWord, translationWord, notesWord);
         wordForm.reset();
         englishWordInput.focus();
+        await addWordToStorage(englishWord, translationWord, notesWord);
         renderWords(searchInput.value);
         showToast(`"${englishWord}" adicionado ao vocabulário ✓`);
     }
 });
 
 // ── Delete word ───────────────────────────────────────────────
-function deleteWord(id) {
+async function deleteWord(id) {
     if (confirm('Tem certeza que deseja excluir esta palavra?')) {
-        removeWordFromStorage(id);
+        await removeWordFromStorage(id);
         renderWords(searchInput.value);
         showToast('Palavra removida.');
     }
 }
 
 // ── Toggle reviewed ───────────────────────────────────────────
-function toggleReviewed(id, checkbox) {
-    toggleReviewedInStorage(id);
+async function toggleReviewed(id, checkbox) {
+    await toggleReviewedInStorage(id);
     const card = checkbox.closest('.word-card');
     if (checkbox.checked) {
         card.classList.add('reviewed');
@@ -173,4 +203,10 @@ searchInput.addEventListener('input', () => {
 });
 
 // ── Init ──────────────────────────────────────────────────────
-renderWords();
+renderWords();
+
+if (typeof fetchWordsFromDatabase === 'function') {
+    fetchWordsFromDatabase().then(() => {
+        renderWords(searchInput ? searchInput.value : '');
+    });
+}
