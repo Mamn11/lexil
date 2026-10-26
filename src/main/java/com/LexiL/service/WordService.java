@@ -64,6 +64,20 @@ public class WordService {
     }
 
     @Transactional
+    public Optional<WordResponse> updateWord(Long id, String username, String english, String translation, String notes) {
+        Optional<Word> wordOptional = wordRepository.findByIdAndUser_Username(id, username.trim().toLowerCase());
+        if (wordOptional.isPresent()) {
+            Word word = wordOptional.get();
+            word.setEnglish(english.trim());
+            word.setTranslation(translation.trim());
+            word.setNotes(notes != null ? notes.trim() : "");
+            Word saved = wordRepository.save(word);
+            return Optional.of(toResponse(saved));
+        }
+        return Optional.empty();
+    }
+
+    @Transactional
     public void syncLegacyWords(String username, List<WordSyncRequest> wordsToSync) {
         if (wordsToSync == null || wordsToSync.isEmpty()) return;
 

@@ -5,46 +5,46 @@
 const THEMES = [
     {
         id: 'palette1',
-        name: 'Paleta 1 — Oxford & Crimson',
-        icon: '⚓',
-        primary: '#e63946',
-        secondary: '#457b9d',
-        desc: 'Oxford navy, cerulean, frosted blue e punch red'
+        name: 'Paleta 1 (Escuro) — Vaporwave Palms',
+        icon: '🌙',
+        primary: '#F24B4B',
+        secondary: '#280D8C',
+        desc: 'Noturno: azul profundo, roxo elétrico e coral neon'
     },
     {
         id: 'palette2',
-        name: 'Paleta 2 — Space Indigo & Red',
-        icon: '🌌',
-        primary: '#ef233c',
-        secondary: '#8d99ae',
-        desc: 'Space indigo, lavender grey, platinum e punch red'
+        name: 'Paleta 2 (Claro) — Emerald Luxury',
+        icon: '☀️',
+        primary: '#017434',
+        secondary: '#02DC4A',
+        desc: 'Claro: menta suave, pinheiro e verde esmeralda'
     },
     {
         id: 'palette3',
-        name: 'Paleta 3 — Ink Black & Gold',
-        icon: '👑',
-        primary: '#ffd60a',
-        secondary: '#003566',
-        desc: 'Ink black, azul prussiano, regal navy e ouro'
+        name: 'Paleta 3 (Escuro) — Emerald Luxury',
+        icon: '🌙',
+        primary: '#02DC4A',
+        secondary: '#012623',
+        desc: 'Noturno: pinheiro profundo, esmeralda e neon mint'
     },
     {
         id: 'palette4',
-        name: 'Paleta 4 — Black & Amber Orange',
-        icon: '🔥',
-        primary: '#fca311',
-        secondary: '#14213d',
-        desc: 'Preto puro, prussian blue, âmbar e alabastro'
+        name: 'Paleta 4 (Claro) — Digerati Cyber',
+        icon: '☀️',
+        primary: '#FF3B77',
+        secondary: '#52656B',
+        desc: 'Claro: branco linho, ardósia, hot pink e cyber lime'
     }
 ];
 
 const THEME_ALIASES = {
     'violet': 'palette1',
-    'emerald': 'palette1',
-    'light': 'palette1',
-    'sakura': 'palette2',
+    'emerald': 'palette2',
     'ocean': 'palette3',
     'cyberpunk': 'palette4',
-    'sunset': 'palette4'
+    'sunset': 'palette4',
+    'light': 'palette2',
+    'sakura': 'palette4'
 };
 
 const THEME_STORAGE_KEY = 'lexil_theme';
